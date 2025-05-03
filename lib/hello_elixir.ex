@@ -1,3 +1,11 @@
+defmodule Membership do
+  defstruct [:type, :price]
+end
+
+defmodule User do
+  defstruct [:name, :membership]
+end
+
 defmodule HelloElixir do
   use Application
 
@@ -7,22 +15,21 @@ defmodule HelloElixir do
   end
 
   def main do
-    memberships = {:bronze, :silver};
-    memberships = Tuple.append(memberships, :gold);
-    IO.inspect(memberships);
-
-    prices = {5, 10, 15};
-    avg = Tuple.sum(prices) / tuple_size(prices);
-    IO.puts(avg);
+    memberships = %{
+      gold: %Membership{type: :gold, price: 25},
+      silver: %Membership{type: :silver, price: 20},
+      bronze: %Membership{type: :bronze, price: 15},
+      none: %Membership{type: :none, price: 0}
+    };
 
     users = [
-      {"Caleb", :gold},
-      {"Kayla", :gold},
-      {"Carrie", :silver},
-      {"John", :bronze}
+      %User{name: "Caleb", membership: memberships.gold},
+      %User{name: "Kayla", membership: memberships.gold},
+      %User{name: "Carrie", membership: memberships.silver},
+      %User{name: "John", membership: memberships.bronze}
     ]
-    Enum.each(users, fn{name, membership} ->
-      IO.puts("#{name} has a #{membership} membership")
+    Enum.each(users, fn %{name: name, membership: %{type: type, price: price}} ->
+      IO.puts("#{name} has a #{type} membership paying #{price}.");
     end)
   end
 end
