@@ -7,8 +7,12 @@ defmodule HelloElixir do
   end
 
   def main do
-    IO.puts(:hello)
-    IO.puts("hello")
-    IO.puts(:"hello world")
+    name = "Miky";
+    status = Enum.random([:gold, :silver, :bronze, :"not a member"])
+    case status do
+      :gold -> IO.puts("Welcome to the fancy lounge, #{name}")
+      :"not a member" -> IO.puts("Get subscribed")
+      _ -> IO.puts("Get out bruh")
+    end
   end
 end
