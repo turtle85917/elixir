@@ -7,10 +7,22 @@ defmodule HelloElixir do
   end
 
   def main do
-    time = Time.new!(16, 30, 0, 0)
-    date = Date.new!(2025, 1, 1)
-    date_time = DateTime.new!(date, time, "Etc/UTC")
-    IO.puts(date.year)
-    IO.inspect(date_time)
+    memberships = {:bronze, :silver};
+    memberships = Tuple.append(memberships, :gold);
+    IO.inspect(memberships);
+
+    prices = {5, 10, 15};
+    avg = Tuple.sum(prices) / tuple_size(prices);
+    IO.puts(avg);
+
+    users = [
+      {"Caleb", :gold},
+      {"Kayla", :gold},
+      {"Carrie", :silver},
+      {"John", :bronze}
+    ]
+    Enum.each(users, fn{name, membership} ->
+      IO.puts("#{name} has a #{membership} membership")
+    end)
   end
 end
