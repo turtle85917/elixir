@@ -7,6 +7,11 @@ defmodule HelloElixir do
   end
 
   def main do
-    IO.puts(?가)
+    # a = 10
+    # b = 5
+    # IO.puts(a / b)
+    # :io.format("~.20f\n", [0.1])
+    # IO.puts(Float.ceil(0.1, 1))
+    IO.puts(Integer.gcd(3, 5))
   end
 end
