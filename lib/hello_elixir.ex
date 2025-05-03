@@ -1,13 +1,14 @@
 defmodule HelloElixir do
   use Application
-  alias UUID
 
   def start(_type, _args) do
-    IO.puts(UUID.uuid4())
+    HelloElixir.main()
     Supervisor.start_link([], strategy: :one_for_one)
   end
 
-  def hello do
-    :world
+  def main do
+    IO.puts(:hello)
+    IO.puts("hello")
+    IO.puts(:"hello world")
   end
 end
