@@ -7,17 +7,30 @@ defmodule HelloElixir do
     Supervisor.start_link([], strategy: :one_for_one)
   end
 
-  def main do
-    grades = [25, 50, 75, 100]
-    for n <- grades, do: IO.puts(n);
-    new = for n <- grades, do: n + 5;
-    IO.inspect(new)
-    new = new ++ [125]
-    IO.inspect(new)
-    new = [5 | new]
-    IO.inspect(new)
+  def sumAndAverage(numbers) do
+    sum = Enum.sum(numbers);
+    average = sum / Enum.count(numbers);
+    {sum, average};
+  end
 
-    even = for n <- new, Integer.is_even(n), do: n * n
-    IO.inspect(even)
+  def printNumbers(numbers) do
+    numbers
+    |> Enum.join(" ")
+    |> IO.puts();
+  end
+
+  def getNumbersFromUser do
+    # IO.puts("Enter numbers separated by spaces: ");
+    IO.gets("Enter numbers separated by spaces: ")
+    |> String.trim()
+    |> String.split(" ")
+    |> Enum.map(&String.to_integer/1);
+  end
+
+  def main do
+    numbers = getNumbersFromUser(); #["1", "2", "3", "4", "5"];
+    numbers |> printNumbers();
+    {sum, average} = sumAndAverage(numbers);
+    IO.puts("Sum: #{sum}, average: #{average}");
   end
 end
