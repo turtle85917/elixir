@@ -7,11 +7,10 @@ defmodule HelloElixir do
   end
 
   def main do
-    # a = 10
-    # b = 5
-    # IO.puts(a / b)
-    # :io.format("~.20f\n", [0.1])
-    # IO.puts(Float.ceil(0.1, 1))
-    IO.puts(Integer.gcd(3, 5))
+    time = Time.new!(16, 30, 0, 0)
+    date = Date.new!(2025, 1, 1)
+    date_time = DateTime.new!(date, time, "Etc/UTC")
+    IO.puts(date.year)
+    IO.inspect(date_time)
   end
 end
