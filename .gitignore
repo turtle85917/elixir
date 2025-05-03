@@ -21,3 +21,6 @@ hello_elixir-*.tar
 
 # Temporary files, for example, from tests.
 /tmp/
+
+# What is it?
+.elixir_ls

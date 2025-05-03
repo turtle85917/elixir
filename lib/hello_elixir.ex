@@ -13,6 +13,9 @@ defmodule HelloElixir do
 
   """
   def hello do
-    :world
+    IO.puts(:world)
   end
 end
+
+HelloElixir.hello()
+IO.puts("Compile time!")
