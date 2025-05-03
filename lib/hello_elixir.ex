@@ -21,6 +21,24 @@ defmodule HelloElixir do
     end
   end
 
+  def checkWinner(matrix, turn) do
+    winPattern = [
+      [{0, 0}, {0, 1}, {0, 2}],
+      [{1, 0}, {1, 1}, {1, 2}],
+      [{2, 0}, {2, 1}, {2, 2}],
+      [{0, 0}, {1, 0}, {2, 0}],
+      [{0, 1}, {1, 1}, {2, 1}],
+      [{0, 2}, {1, 2}, {2, 2}],
+      [{0, 0}, {1, 1}, {2, 2}],
+      [{0, 2}, {1, 1}, {2, 0}]
+    ];
+    Enum.any?(winPattern, fn pattern ->
+      Enum.all?(pattern, fn {row, col} ->
+        Enum.at(Enum.at(matrix, row), col) == turn;
+      end);
+    end);
+  end
+
   def printBoard(matrix) do
     matrix
     |> Enum.each(fn row ->
@@ -33,6 +51,7 @@ defmodule HelloElixir do
   def gameLoop(matrix, turn) do
     try do
       matrix |> printBoard();
+      IO.puts("Current Turn: #{turn |> getPiece}")
       position = IO.gets("Input position (x, y): ")\
       |> String.trim()
       |> String.split(~r{,\s*}, trim: true)
@@ -53,7 +72,12 @@ defmodule HelloElixir do
         matrix = List.update_at(matrix, y - 1, fn row ->
           List.update_at(row, x - 1, fn _ -> turn end)
         end);
-        gameLoop(matrix, getReverseTurn(turn));
+        if(checkWinner(matrix, turn)) do
+          matrix |> printBoard();
+          IO.puts("Winner is #{turn}!");
+        else
+          gameLoop(matrix, getReverseTurn(turn));
+        end
       end
     rescue
       e -> IO.puts("Caught an exception: #{e}")
