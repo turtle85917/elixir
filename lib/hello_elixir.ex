@@ -1,12 +1,5 @@
-defmodule Membership do
-  defstruct [:type, :price]
-end
-
-defmodule User do
-  defstruct [:name, :membership]
-end
-
 defmodule HelloElixir do
+  require Integer
   use Application
 
   def start(_type, _args) do
@@ -15,21 +8,16 @@ defmodule HelloElixir do
   end
 
   def main do
-    memberships = %{
-      gold: %Membership{type: :gold, price: 25},
-      silver: %Membership{type: :silver, price: 20},
-      bronze: %Membership{type: :bronze, price: 15},
-      none: %Membership{type: :none, price: 0}
-    };
+    grades = [25, 50, 75, 100]
+    for n <- grades, do: IO.puts(n);
+    new = for n <- grades, do: n + 5;
+    IO.inspect(new)
+    new = new ++ [125]
+    IO.inspect(new)
+    new = [5 | new]
+    IO.inspect(new)
 
-    users = [
-      %User{name: "Caleb", membership: memberships.gold},
-      %User{name: "Kayla", membership: memberships.gold},
-      %User{name: "Carrie", membership: memberships.silver},
-      %User{name: "John", membership: memberships.bronze}
-    ]
-    Enum.each(users, fn %{name: name, membership: %{type: type, price: price}} ->
-      IO.puts("#{name} has a #{type} membership paying #{price}.");
-    end)
+    even = for n <- new, Integer.is_even(n), do: n * n
+    IO.inspect(even)
   end
 end
