@@ -39,6 +39,13 @@ defmodule HelloElixir do
     end);
   end
 
+  def checkDraw(matrix) do
+    List.flatten(matrix)
+    |> Enum.all?(fn col ->
+      col != 0;
+    end);
+  end
+
   def printBoard(matrix) do
     matrix
     |> Enum.each(fn row ->
@@ -76,7 +83,12 @@ defmodule HelloElixir do
           matrix |> printBoard();
           IO.puts("Winner is #{turn}!");
         else
-          gameLoop(matrix, getReverseTurn(turn));
+          if(checkDraw(matrix)) do
+            matrix |> printBoard();
+            IO.puts("Draw...");
+          else
+            gameLoop(matrix, getReverseTurn(turn));
+          end
         end
       end
     rescue
